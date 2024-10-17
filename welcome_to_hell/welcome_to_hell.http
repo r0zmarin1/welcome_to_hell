@@ -1,0 +1,6 @@
+@welcome_to_hell_HostAddress = http://localhost:5223
+
+GET {{welcome_to_hell_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
