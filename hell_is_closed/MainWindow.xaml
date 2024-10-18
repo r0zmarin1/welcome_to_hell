@@ -1,0 +1,41 @@
+﻿<Window x:Class="hell_is_closed.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:hell_is_closed"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <TabControl>
+            <TabItem Header="Рабы">
+                <StackPanel>
+                    <ListView ItemsSource="{Binding Devils}" SelectedItem="{Binding Devil}">
+                        
+                    </ListView>
+                    <Button Click="AddDevil"/>
+                    <Button Click="EditDevilName"/>
+                    <Button Click="UpdateDevilRank"/>
+                    <Button Click="DeleteDevil"/>
+                </StackPanel>
+            </TabItem>
+            <TabItem Header="Оборудование">
+                <StackPanel>
+                    <ListView ItemsSource="{Binding Racks}" SelectedItem="{Binding Rack}">
+
+                    </ListView>
+                    <Button Click="AddRack"/>
+                    <Button Click="UpdateRack"/>
+                    <Button Click="DeleteRack"/>
+                </StackPanel>
+            </TabItem>
+            <TabItem Header="Утиль">
+                <StackPanel>
+                    <ListView ItemsSource="{Binding Disposals}" SelectedItem="{Binding Disposal}">
+
+                    </ListView>
+                </StackPanel>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>
