@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace welcome_to_hell.Controllers
 {
@@ -36,7 +37,7 @@ namespace welcome_to_hell.Controllers
         {
             await Task.Delay(10);
             List<Rack> racks = new List<Rack>();
-            racks = _666Context.Racks.ToList();
+            racks = _666Context.Racks.Include(s=>s.IdDevilNavigation).ToList();
             return racks;
         }
     }

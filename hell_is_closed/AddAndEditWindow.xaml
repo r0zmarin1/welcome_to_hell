@@ -6,7 +6,16 @@
         xmlns:local="clr-namespace:hell_is_closed"
         mc:Ignorable="d"
         Title="AddAndEditWindow" Height="450" Width="800">
-    <Grid>
+    <StackPanel>
+        <TabControl>
+            <TabItem Header="Рабы">
+                
+            </TabItem>
+            <TabItem Header="Оборудование">
+
+            </TabItem>
+            
+        </TabControl>
         
-    </Grid>
+    </StackPanel>
 </Window>
