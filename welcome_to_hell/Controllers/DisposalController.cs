@@ -15,8 +15,8 @@ namespace welcome_to_hell.Controllers
             this._666Context = _666Context;
         }
 
-        [HttpPost("DeleteRack")]
-        public async Task<ActionResult> DeleteRack(Rack rack)
+        [HttpPost("DeleteRacks")]
+        public async Task<ActionResult> DeleteRacks(RackBl rack)
         {
             var original = _666Context.Racks.Find(rack.Id);
             Disposal disposal = new Disposal
@@ -25,7 +25,7 @@ namespace welcome_to_hell.Controllers
                 Year = original.YearBuy
             };
             _666Context.Disposals.Add(disposal);
-            _666Context.Racks.Remove(rack);
+            _666Context.Racks.Remove(original);
             await _666Context.SaveChangesAsync();
             return Ok();
         }

@@ -9,13 +9,53 @@
     <StackPanel>
         <TabControl>
             <TabItem Header="Рабы">
-                
+                <TabControl>
+                    <TabItem Header="Добавить">
+                        <StackPanel>
+                            <Label Content="погоняло"/>
+                            <TextBox Text="{Binding Devil.Nick}"/>
+                            <Label Content="ранг"/>
+                            <TextBox Text="{Binding Devil.Rank}"/>
+                            <Label Content="год прибытия"/>
+                            <TextBox Text="{Binding Devil.Year}"/>
+                            <Button Content="Сохранить" Click="SavedEVIL"/>
+                        </StackPanel>
+                    </TabItem>
+                    <TabItem Header="Изменить погоняло">
+                        <StackPanel>
+                            <Label Content="погоняло"/>
+                            <TextBox Text="{Binding Devil.Nick}"/>
+                            <Button Content="Сохранить" Click="SavedEVIL"/>
+                        </StackPanel>
+                    </TabItem>
+                </TabControl>
             </TabItem>
             <TabItem Header="Оборудование">
-
+                <TabControl>
+                    <TabItem Header="Добавить">
+                        <StackPanel>
+                            <Label Content="название"/>
+                            <TextBox Text="{Binding Rack.Title}"/>
+                            <Label Content="ответственный"/>
+                            <ComboBox ItemsSource="{Binding Devils}" SelectedItem="{Binding Devil}"/>
+                            <Label Content="год покупки"/>
+                            <TextBox Text="{Binding Rack.YearBuy}"/>
+                            <Label Content="макс кол-во применений"/>
+                            <TextBox Text="{Binding Rack.UseCount}"/>
+                            <Label Content="кол-во применений"/>
+                            <TextBox Text="{Binding Rack.CurrentCount}"/>
+                            <Button Content="Сохранить" Click="SaveRack"/>
+                        </StackPanel>
+                    </TabItem>
+                    <TabItem Header="Поменять ответственного">
+                        <StackPanel>
+                            <Label Content="ответственный"/>
+                            <ComboBox ItemsSource="{Binding Devils}" SelectedItem="{Binding Devil}"/>
+                            <Button Content="Сохранить" Click="SaveRack"/>
+                        </StackPanel>
+                    </TabItem>
+                </TabControl>
             </TabItem>
-            
         </TabControl>
-        
-    </StackPanel>
+  </StackPanel>
 </Window>

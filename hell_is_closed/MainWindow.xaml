@@ -5,12 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:hell_is_closed"
         mc:Ignorable="d"
-        Title="MainWindow" Height="750" Width="800">
+        Title="MainWindow" Height="590" Width="800">
     <Grid>
         <TabControl>
             <TabItem Header="Рабы">
                 <StackPanel>
-                    <ListView ItemsSource="{Binding Devils}" SelectedItem="{Binding Devil}">
+                    <ListView ItemsSource="{Binding Devils}" SelectedItem="{Binding Devil}" Height="440" >
                         
                     </ListView>
                     <Button Content="Добавить" Click="AddDevil"/>
@@ -21,7 +21,7 @@
             </TabItem>
             <TabItem Header="Оборудование">
                 <StackPanel>
-                    <ListView ItemsSource="{Binding Racks}" SelectedItem="{Binding Rack}">
+                    <ListView ItemsSource="{Binding Racks}" SelectedItem="{Binding Rack}" Height="460">
 
                     </ListView>
                     <Button Content="Добавить" Click="AddRack"/>
@@ -31,7 +31,7 @@
             </TabItem>
             <TabItem Header="Утиль">
                 <StackPanel>
-                    <ListView ItemsSource="{Binding Disposals}" SelectedItem="{Binding Disposal}">
+                    <ListView ItemsSource="{Binding Disposals}" SelectedItem="{Binding Disposal}" Height="590">
 
                     </ListView>
                 </StackPanel>

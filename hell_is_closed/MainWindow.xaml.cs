@@ -67,9 +67,12 @@ namespace hell_is_closed
         public MainWindow()
         {
             InitializeComponent();
-            options =new JsonSerializerOptions { ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles, PropertyNameCaseInsensitive=true };
+            options = new JsonSerializerOptions { ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles, PropertyNameCaseInsensitive = true };
             httpClient.BaseAddress = new Uri("http://localhost:5223/api/");
             DataContext = this;
+            GetDevils();
+            GetDisposals();
+            GetRacks();
             timerStart();
         }
 
@@ -77,7 +80,7 @@ namespace hell_is_closed
         {
             timer = new DispatcherTimer();
             timer.Tick += new EventHandler(timerTick);
-            timer.Interval = new TimeSpan(0, 0, 3);
+            timer.Interval = new TimeSpan(0, 0, 10);
             timer.Start();
         }
         private void timerTick(object sender, EventArgs e) //к таймеру относится 
@@ -142,13 +145,13 @@ namespace hell_is_closed
 
         private void AddDevil(object sender, RoutedEventArgs e)
         {
-            AddAndEditWindow addAndEditWindow = new AddAndEditWindow();
+            AddAndEditWindow addAndEditWindow = new AddAndEditWindow(new Rack(), new Devil());
             addAndEditWindow.Show();
         }
 
         private void EditDevilName(object sender, RoutedEventArgs e)
         {
-            AddAndEditWindow addAndEditWindow = new AddAndEditWindow();
+            AddAndEditWindow addAndEditWindow = new AddAndEditWindow(new Rack(), Devil);
             addAndEditWindow.Show();
         }
 
@@ -157,26 +160,52 @@ namespace hell_is_closed
 
         }
 
-        private void DeleteDevil(object sender, RoutedEventArgs e)
+        private async void DeleteDevil(object sender, RoutedEventArgs e)
         {
-
+            string arg = JsonSerializer.Serialize(Devil);
+            var responce = await httpClient.PostAsync($"Devils/DeleteDevil", new StringContent(arg, Encoding.UTF8, "application/json"));
+            if (responce.StatusCode != System.Net.HttpStatusCode.OK)
+            {
+                var result = await responce.Content.ReadAsStringAsync();
+                MessageBox.Show("ошибка");
+                return;
+            }
+            else
+            {
+                var result = await responce.Content.ReadAsStringAsync();
+                MessageBox.Show("изгнан");
+            }
         }
 
         private void AddRack(object sender, RoutedEventArgs e)
         {
-            AddAndEditWindow addAndEditWindow = new AddAndEditWindow();
+            AddAndEditWindow addAndEditWindow = new AddAndEditWindow(new Rack(), new Devil());
             addAndEditWindow.Show();
         }
 
         private void UpdateRack(object sender, RoutedEventArgs e)
         {
-            AddAndEditWindow addAndEditWindow = new AddAndEditWindow();
+            AddAndEditWindow addAndEditWindow = new AddAndEditWindow(Rack, new Devil());
             addAndEditWindow.Show();
         }
 
-        private void DeleteRack(object sender, RoutedEventArgs e)
+        private async void DeleteRack(object sender, RoutedEventArgs e)
         {
-
+            string arg = JsonSerializer.Serialize((RackBl)Rack, options);
+            var responce = await httpClient.PostAsync($"Disposal/DeleteRacks", 
+                new StringContent(arg, Encoding.UTF8, "application/json"));
+            if (responce.StatusCode != System.Net.HttpStatusCode.OK)
+            {
+                var result = await responce.Content.ReadAsStringAsync();
+                MessageBox.Show(result);
+                return;
+            }
+            else
+            {
+                var result = await responce.Content.ReadAsStringAsync();
+                MessageBox.Show("перемещено в утиль");
+            }
         }
+
     }
 }

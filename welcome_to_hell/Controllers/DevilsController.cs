@@ -54,7 +54,7 @@ namespace welcome_to_hell.Controllers
         {
             await Task.Delay(10);
             List<Devil> devils = new List<Devil>();
-            devils = _666Context.Devils.ToList();
+            devils = _666Context.Devils.Include(s=>s.Racks).ToList();
             return devils;
         }
     }
