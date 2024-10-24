@@ -28,6 +28,13 @@
                             <Button Content="Сохранить" Click="SavedEVIL"/>
                         </StackPanel>
                     </TabItem>
+                    <TabItem Header="Обновить ранг">
+                        <StackPanel>
+                            <Label Content="ранг"/>
+                            <TextBox Text="{Binding Devil.Rank}"/>
+                            <Button Content="Сохранить" Click="SavedEVILRank"/>
+                        </StackPanel>
+                    </TabItem>
                 </TabControl>
             </TabItem>
             <TabItem Header="Оборудование">
@@ -37,7 +44,7 @@
                             <Label Content="название"/>
                             <TextBox Text="{Binding Rack.Title}"/>
                             <Label Content="ответственный"/>
-                            <ComboBox ItemsSource="{Binding Devils}" SelectedItem="{Binding Devil}"/>
+                            <ComboBox ItemsSource="{Binding Devils}" SelectedItem="{Binding Devil}" DisplayMemberPath="{Binding Nick}"/>
                             <Label Content="год покупки"/>
                             <TextBox Text="{Binding Rack.YearBuy}"/>
                             <Label Content="макс кол-во применений"/>

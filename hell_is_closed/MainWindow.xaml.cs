@@ -29,7 +29,17 @@ namespace hell_is_closed
 
         public Devil Devil { get; set; }
         public Disposal Disposal { get; set; }
-        public Rack Rack { get; set; }
+        private Rack rack;
+        public Rack Rack 
+        { 
+            get => rack;
+            set 
+            { 
+                rack = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Rack)));
+            }
+        }
+
         private List<Devil> devils;
         public List<Devil> Devils
         {
@@ -157,7 +167,8 @@ namespace hell_is_closed
 
         private void UpdateDevilRank(object sender, RoutedEventArgs e)
         {
-
+            AddAndEditWindow addAndEditWindow = new AddAndEditWindow(new Rack(), Devil);
+            addAndEditWindow.Show();
         }
 
         private async void DeleteDevil(object sender, RoutedEventArgs e)

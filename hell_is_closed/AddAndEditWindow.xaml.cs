@@ -29,10 +29,20 @@ namespace hell_is_closed
         JsonSerializerOptions options = new JsonSerializerOptions();
 
         public event PropertyChangedEventHandler? PropertyChanged;
+        private Devil devil;
+        public Devil Devil
+        {
+            get => devil;
+            set
+            {
+                devil = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Devil)));
+            }
+        }
 
-        public Devil Devil { get; set; }
         public Rack Rack { get; set; }
-        
+
+
         private List<Devil> devils;
         public List<Devil> Devils
         {
@@ -79,6 +89,7 @@ namespace hell_is_closed
             {
                 var devils = await responce.Content.ReadFromJsonAsync<List<Devil>>();
                 Devils = new List<Devil>(devils);
+                Devil = Devils.FirstOrDefault(s => s.Id == Rack.IdDevil);
             }
         }
 
@@ -88,7 +99,7 @@ namespace hell_is_closed
             Rack.IdDevilNavigation = Devil;
             if (Rack.Id == 0)
             {
-                string arg = JsonSerializer.Serialize((RackBl)Rack);
+                string arg = JsonSerializer.Serialize((RackBl)Rack, options);
                 var responce = await httpClient.PostAsync($"Racks/CreateRack", new StringContent(arg, Encoding.UTF8, "application/json"));
                 if (responce.StatusCode != System.Net.HttpStatusCode.OK)
                 {
@@ -100,6 +111,7 @@ namespace hell_is_closed
                 {
                     var result = await responce.Content.ReadAsStringAsync();
                     MessageBox.Show("добавлено новое оборудование");
+                    Close();
                 }
             }
             else
@@ -116,6 +128,7 @@ namespace hell_is_closed
                 {
                     var result = await responce.Content.ReadAsStringAsync();
                     MessageBox.Show("ответственный раб изменен");
+                    Close();
                 }
             }
         }
@@ -136,6 +149,7 @@ namespace hell_is_closed
                 {
                     var result = await responce.Content.ReadAsStringAsync();
                     MessageBox.Show("дьявол прибыл на службу");
+                    Close();
                 }
             }
             else
@@ -152,7 +166,26 @@ namespace hell_is_closed
                 {
                     var result = await responce.Content.ReadAsStringAsync();
                     MessageBox.Show("дьявол поменял пол на ламинат");
+                    Close();
                 }
+            }
+        }
+
+        private async void SavedEVILRank(object sender, RoutedEventArgs e)
+        {
+            string arg = JsonSerializer.Serialize(Devil);
+            var responce = await httpClient.PostAsync($"Devils/UpdateDevil", new StringContent(arg, Encoding.UTF8, "application/json"));
+            if (responce.StatusCode != System.Net.HttpStatusCode.OK)
+            {
+                var result = await responce.Content.ReadAsStringAsync();
+                MessageBox.Show("ошибка");
+                return;
+            }
+            else
+            {
+                var result = await responce.Content.ReadAsStringAsync();
+                MessageBox.Show("дьявол обновил ранг!");
+                Close();
             }
         }
     }
